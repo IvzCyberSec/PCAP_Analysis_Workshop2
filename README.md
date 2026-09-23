@@ -49,11 +49,11 @@ Record and report on any finding.
 
 Your final report should briefly include:
 
-- **Introduction** — what PCAP was analysed.
-- **Methodology** — how you investigated the traffic.
-- **Findings** — important traffic, hosts, protocols and evidence.
-- **Analysis** — what the findings mean.
-- **Conclusion** — summary of what you discovered.
+- **Introduction** - what PCAP was analysed.
+- **Methodology** - how you investigated the traffic.
+- **Findings** - important traffic, hosts, protocols and evidence.
+- **Analysis** - what the findings mean.
+- **Conclusion** - summary of what you discovered.
 
 Include relevant screenshots or packet information where appropriate.
 
