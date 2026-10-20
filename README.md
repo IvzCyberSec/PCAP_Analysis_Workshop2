@@ -133,8 +133,8 @@ Requests**, **View → Time Display Format**.
 ## Suggested report structure
 
 If you want to write this up for a GitHub portfolio, a report covering
-the following sections — each claim backed by a packet number and
-timestamp — works well:
+the following sections - each claim backed by a packet number and
+timestamp - works well:
 
 1. Executive summary
 2. Scope and methodology
