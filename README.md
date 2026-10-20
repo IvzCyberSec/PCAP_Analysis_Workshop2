@@ -48,44 +48,44 @@ is not, by itself, proof that something worked.
 2. Work through the stages below, in order, using Wireshark's display
    filters and "Follow → TCP Stream" feature.
 3. Write up your findings (a template structure is suggested at the
-   bottom of this file) — then, and only then, compare against
+   bottom of this file) - then, and only then, compare against
    `reference-report/incident-report-golden-standard.pdf`.
 
 ### New to Wireshark?
 
-Three panes: **packet list** (top — one row per packet), **packet
-details** (middle — expandable headers for the selected packet), and
-**packet bytes** (bottom — raw hex/ASCII). Click a packet, then expand
+Three panes: **packet list** (top - one row per packet), **packet
+details** (middle - expandable headers for the selected packet), and
+**packet bytes** (bottom - raw hex/ASCII). Click a packet, then expand
 its layers in the details pane to see how they map to the bytes below.
 
-Type a filter into the bar at the top and press Enter — this **hides**
+Type a filter into the bar at the top and press Enter - this **hides**
 non-matching packets, it doesn't delete anything. Right-click any HTTP
 packet → **Follow → TCP Stream** to reassemble a full, readable
-request/response exchange — the single most useful technique for this
+request/response exchange - the single most useful technique for this
 exercise.
 
 ## Investigation stages
 
-**Stage A — Understand the traffic.** How many distinct IP addresses
+**Stage A - Understand the traffic.** How many distinct IP addresses
 are talking? Use *Statistics → Conversations* or `ip.addr` filters to
 list them. Which protocols appear? Find a few requests that look like
-ordinary browsing — which host(s), and at what pace?
+ordinary browsing - which host(s), and at what pace?
 
-**Stage B — Reconnaissance.** One source address requests a run of
+**Stage B - Reconnaissance.** One source address requests a run of
 paths in quick succession, several of which don't exist. Which
 address? List the paths and response codes. Why does the pattern look
 automated rather than like a person browsing? Does one request reveal
 where the real admin login lives?
 
-**Stage C — Authentication activity.** Filter for requests to the
+**Stage C - Authentication activity.** Filter for requests to the
 login endpoint you found in Stage B. How many attempts are there? What
-response comes back each time — does **any** succeed? Where does this
+response comes back each time - does **any** succeed? Where does this
 activity stop, and for how long?
 
-**Stage D — Keep going.** Don't assume the story's over when the
+**Stage D - Keep going.** Don't assume the story's over when the
 activity above stops. What's the very next request from the same
 source, once things resume? How is it different from everything sent
-before — not just the path, but the actual field values? What does the
+before - not just the path, but the actual field values? What does the
 response look like?
 
 *(Hints, if you get stuck: compare the exact bytes of this request's
@@ -93,9 +93,9 @@ form data against the earlier attempts - something is different in
 kind, not just a different guess. Then follow that TCP stream and read
 the full response body, not just the status line.)*
 
-**Stage E — Establish what happened.** Shortly after Stage D's
+**Stage E - Establish what happened.** Shortly after Stage D's
 request, is there another request from the same source with a
-similarly unusual value? What does the server respond with this time —
+similarly unusual value? What does the server respond with this time -
 status code, and any notable response headers? Is there a subsequent
 request to a path under `/admin/` carrying something in its headers
 that none of the earlier requests had? What does the response contain,
@@ -104,8 +104,8 @@ administrator? **Based on all of this: did the activity in Stage C, or
 the activity in Stage D/E, actually obtain administrative access?**
 Cite specific packets either way.
 
-**Stage F — Impact and defences.** What does this capture *prove*,
-with evidence? What does it *not* prove — what would server-side logs
+**Stage F - Impact and defences.** What does this capture *prove*,
+with evidence? What does it *not* prove - what would server-side logs
 add? Which controls (rate limiting, parameterised queries, WAF rules,
 alerting, account lockout) would have prevented or detected each phase?
 Why is plaintext HTTP acceptable in this teaching capture but not for a
